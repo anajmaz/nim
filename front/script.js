@@ -1,20 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Estado do jogo
   let board = [1, 3, 5, 7];
   let selectedLine = null;
   let selectedSticks = [];
   let currentPlayer = 1;
   let lastPlayer = null;
-  let againstBot = false; // define se o jogo é contra o bot
 
   const currentPlayerDiv = document.getElementById('currentPlayer');
+  const modeModal = document.getElementById('modeSelectionModal');
   const confirmButton = document.getElementById('confirm-button');
+  const restartButton = document.getElementById('restart-button');
 
   function updateCurrentPlayerText() {
-    if (againstBot && currentPlayer === 2) {
-      currentPlayerDiv.textContent = `Bot está jogando...`;
-    } else {
-      currentPlayerDiv.textContent = `Jogador ${currentPlayer}, sua vez`;
-    }
+    currentPlayerDiv.textContent = `Jogador ${currentPlayer}, sua vez`;
   }
 
   function switchPlayer() {
@@ -27,9 +25,16 @@ document.addEventListener('DOMContentLoaded', () => {
     boardContainer.innerHTML = '';
 
     board.forEach((count, lineIndex) => {
-      const line = document.createElement('div');
-      line.className = 'sticks';
-      line.dataset.line = lineIndex;
+      const pileDiv = document.createElement('div');
+      pileDiv.className = 'pile';
+      pileDiv.id = `pile${lineIndex + 1}`;
+
+      const pileName = document.createElement('div');
+      pileName.className = 'pile-name';
+      pileName.textContent = `Pilha ${String.fromCharCode(65 + lineIndex)}`;
+
+      const sticksDiv = document.createElement('div');
+      sticksDiv.className = 'sticks';
 
       for (let i = 0; i < count; i++) {
         const stick = document.createElement('div');
@@ -38,16 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
         stick.dataset.line = lineIndex;
 
         stick.addEventListener('click', () => selectStick(lineIndex, i, stick));
-        line.appendChild(stick);
+        sticksDiv.appendChild(stick);
       }
 
-      boardContainer.appendChild(line);
+      pileDiv.appendChild(pileName);
+      pileDiv.appendChild(sticksDiv);
+      boardContainer.appendChild(pileDiv);
     });
   }
 
   function selectStick(lineIndex, stickIndex, stickElement) {
-    if (againstBot && currentPlayer === 2) return; // não deixa selecionar se for a vez do bot
-
     if (selectedLine !== null && selectedLine !== lineIndex) return;
 
     const key = `${lineIndex}-${stickIndex}`;
@@ -67,35 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function confirmMove() {
     if (selectedSticks.length === 0) return;
 
-    const line = selectedLine;
     const sticksToRemove = selectedSticks.length;
-    board[line] -= sticksToRemove;
-
+    board[selectedLine] -= sticksToRemove;
     lastPlayer = currentPlayer;
+
     selectedLine = null;
     selectedSticks = [];
 
-    renderBoard();
-
-    if (checkGameOver()) {
-      showGameOver();
-    } else {
-      switchPlayer();
-
-      // se for contra o bot e for a vez dele, o bot joga
-      if (againstBot && currentPlayer === 2) {
-        setTimeout(botMove, 800);
-      }
-    }
-  }
-
-  function botMove() {
-    // bot joga: remove 1 fósforo de uma pilha aleatória válida
-    const nonEmptyPiles = board.map((count, index) => ({ count, index })).filter(p => p.count > 0);
-    const chosen = nonEmptyPiles[Math.floor(Math.random() * nonEmptyPiles.length)];
-
-    board[chosen.index] -= 1;
-    lastPlayer = currentPlayer;
     renderBoard();
 
     if (checkGameOver()) {
@@ -106,8 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function checkGameOver() {
-    const total = board.reduce((sum, n) => sum + n, 0);
-    return total === 0;
+    return board.reduce((sum, n) => sum + n, 0) === 0;
   }
 
   function showGameOver() {
@@ -126,32 +108,28 @@ document.addEventListener('DOMContentLoaded', () => {
     renderBoard();
   }
 
-  // Abrir seleção de modo no início
-  const modeModal = document.getElementById('modeSelectModal');
-  document.getElementById('vsPlayerBtn').addEventListener('click', () => {
-    againstBot = false;
-    modeModal.classList.add('hidden');
-    updateCurrentPlayerText();
-    renderBoard();
-  });
-
-  document.getElementById('vsBotBtn').addEventListener('click', () => {
-    againstBot = true;
-    modeModal.classList.add('hidden');
-    updateCurrentPlayerText();
-    renderBoard();
-  });
-
-  // Botões
+  // Eventos
   confirmButton.addEventListener('click', confirmMove);
-  document.getElementById('restart-button').addEventListener('click', () => {
-    modeModal.classList.remove('hidden');
-    restartGame();
-  });
-
+  restartButton.addEventListener('click', restartGame);
   document.getElementById('closeModalBtn').addEventListener('click', () => {
     document.getElementById('gameOverModal').classList.add('hidden');
-    modeModal.classList.remove('hidden');
     restartGame();
   });
+
+  // Modal de seleção de modo (apenas visual)
+  document.getElementById('playerVsPlayerBtn').addEventListener('click', () => {
+    modeModal.classList.add('hidden');
+    updateCurrentPlayerText();
+    renderBoard();
+  });
+
+  document.getElementById('playerVsBotBtn').addEventListener('click', () => {
+    modeModal.classList.add('hidden');
+    updateCurrentPlayerText();
+    renderBoard();
+    // O jogo continua sendo entre 2 jogadores humanos mesmo que o jogador clique aqui
+  });
+
+  // Mostrar seleção de modo ao iniciar
+  modeModal.classList.remove('hidden');
 });
