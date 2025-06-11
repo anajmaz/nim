@@ -1,54 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NIM - Início</title>
+  <meta charset="UTF-8">
+  <title>Tela Inicial</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #3f87a6, #ebf8e1, #f69d3c);
-      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      background-size: 200% 200%;
+      animation: gradientAnimation 10s ease infinite;
+      color: white;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-    }
-
-    .container {
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      justify-content: center;
+      height: 100vh;
       text-align: center;
     }
 
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 90%;
+    }
+
     h1 {
+      font-size: 36px;
       margin-bottom: 20px;
+      color: #ffffff;
     }
 
-    button {
-      padding: 12px 24px;
+    p {
       font-size: 18px;
-      background-color: #3f87a6;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s ease;
+      margin-bottom: 30px;
     }
 
-    button:hover {
-      background-color: #336f88;
+    .btn {
+      background-color: #ffffff;
+      color: #dc2743;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #f2f2f2;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Bem-vindo ao Jogo NIM!</h1>
-    <p>Clique abaixo para começar</p>
-    <button onclick="window.location.href='login.html'">Entrar</button>
+    <h1>Bem-vindo ao Jogo!</h1>
+    <p>Clique no botão abaixo para começar.</p>
+    <a href="login.html" class="btn">Iniciar Jogo</a>
   </div>
 </body>
 </html>
