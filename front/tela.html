@@ -14,8 +14,7 @@
   </header>
 
   <main>
-    <div class="board">
-
+    <div id="board">
       <div class="pile" id="pile1">
         <div class="pile-name">Pilha A</div>
         <div class="sticks">
@@ -60,16 +59,26 @@
 
     </div>
 
-    <button id="confirmBtn" disabled>Confirmar jogada</button>
+    <button id="confirm-button">Confirmar Jogada</button>
 
     <section id="history">
       <h2>Histórico das jogadas</h2>
       <ul id="historyList"></ul>
     </section>
 
-    <button id="restartBtn">Reiniciar jogo</button>
+    <button id="restart-button">Reiniciar Jogo</button>
   </main>
 
   <script src="script.js"></script>
+
+  <!-- Modal personalizado de fim de jogo -->
+<div id="gameOverModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Fim de jogo!</h2>
+      <p>Todos os fósforos foram removidos.</p>
+      <button id="closeModalBtn">Fechar</button>
+    </div>
+  </div>
+
 </body>
 </html>
