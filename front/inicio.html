@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tela Inicial</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      background-size: 200% 200%;
+      animation: gradientAnimation 10s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .main-container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      width: 400px;
+      text-align: center;
+    }
+
+    .main-container h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .main-container p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .main-container button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dc2743;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .main-container button:hover {
+      background-color: #cc2366;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <h1>Bem-vindo ao Jogo!</h1>
+    <p>Clique no botão abaixo para começar.</p>
+    <button onclick="entrar()">Entrar</button>
+  </div>
+
+  <script>
+    function entrar() {
+      window.location.href = "login.html"; // volta para o login
+    }
+  </script>
+</body>
+</html>

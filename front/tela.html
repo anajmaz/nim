@@ -1,11 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jogo Nim</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    
+
+  <header>
+    <h1>Jogo Nim</h1>
+    <div id="currentPlayer">Jogador 1, sua vez</div>
+  </header>
+
+  <main>
+    <div id="board">
+      <div class="pile" id="pile1">
+        <div class="pile-name">Pilha A</div>
+        <div class="sticks">
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+        </div>
+      </div>
+
+      <div class="pile" id="pile2">
+        <div class="pile-name">Pilha B</div>
+        <div class="sticks">
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+        </div>
+      </div>
+
+      <div class="pile" id="pile3">
+        <div class="pile-name">Pilha C</div>
+        <div class="sticks">
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+        </div>
+      </div>
+
+      <div class="pile" id="pile4">
+        <div class="pile-name">Pilha D</div>
+        <div class="sticks">
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <button id="confirm-button">Confirmar Jogada</button>
+
+    <section id="history">
+      <h2>Histórico das jogadas</h2>
+      <ul id="historyList"></ul>
+    </section>
+
+    <button id="restart-button">Reiniciar Jogo</button>
+  </main>
+
+  <script src="script.js"></script>
+
+    <!-- Modal personalizado de fim de jogo -->
+    <div id="gameOverModal" class="modal hidden">
+        <div class="modal-content">
+        <h2>Fim de jogo!</h2>
+        <p>Todos os fósforos foram removidos.</p>
+        <button id="closeModalBtn">Fechar</button>
+        </div>
+    </div>
+    <!-- Modal de escolha de modo de jogo -->
+    <!-- Modal de seleção de modo -->
+<div id="modeSelectionModal" class="modal">
+  <div class="modal-content">
+    <h2>Escolha o modo de jogo</h2>
+    <button id="playerVsPlayerBtn">2 Jogadores</button>
+    <button id="playerVsBotBtn">Contra o Bot</button>
+  </div>
+</div>
+
+
 </body>
 </html>
