@@ -1,11 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jogo Nim</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    
+
+  <header>
+    <h1>Jogo Nim</h1>
+    <div id="currentPlayer">Jogador 1, sua vez</div>
+  </header>
+
+  <main>
+    <div class="board">
+
+      <div class="pile" id="pile1">
+        <div class="pile-name">Pilha A</div>
+        <div class="sticks">
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+        </div>
+      </div>
+
+      <div class="pile" id="pile2">
+        <div class="pile-name">Pilha B</div>
+        <div class="sticks">
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+        </div>
+      </div>
+
+      <div class="pile" id="pile3">
+        <div class="pile-name">Pilha C</div>
+        <div class="sticks">
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+        </div>
+      </div>
+
+      <div class="pile" id="pile4">
+        <div class="pile-name">Pilha D</div>
+        <div class="sticks">
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+          <div class="stick"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <button id="confirmBtn" disabled>Confirmar jogada</button>
+
+    <section id="history">
+      <h2>Histórico das jogadas</h2>
+      <ul id="historyList"></ul>
+    </section>
+
+    <button id="restartBtn">Reiniciar jogo</button>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
