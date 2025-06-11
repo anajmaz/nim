@@ -6,7 +6,13 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+<<<<<<< HEAD
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      background-size: 200% 200%;
+      animation: gradientAnimation 10s ease infinite;
+=======
       background-color: white;  /* fundo branco */
+>>>>>>> dcdd31358ee82ece4bdec130789404690b876757
       display: flex;
       justify-content: center;
       align-items: center;
@@ -14,6 +20,8 @@
       margin: 0;
     }
 
+<<<<<<< HEAD
+=======
     .cadastro-container {
       background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); /* degradê colorido */
       background-size: 200% 200%;
@@ -26,15 +34,31 @@
       color: white;
     }
 
+>>>>>>> dcdd31358ee82ece4bdec130789404690b876757
     @keyframes gradientAnimation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
+<<<<<<< HEAD
+    .cadastro-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      width: 320px;
+      text-align: center;
+    }
+
+    .cadastro-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+=======
     .cadastro-container h2 {
       margin-bottom: 20px;
       color: #fff;
+>>>>>>> dcdd31358ee82ece4bdec130789404690b876757
     }
 
     .cadastro-container input {
@@ -42,6 +66,11 @@
       padding: 10px;
       margin-top: 10px;
       margin-bottom: 15px;
+<<<<<<< HEAD
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+=======
       border: none;
       border-radius: 5px;
       font-size: 14px;
@@ -51,27 +80,51 @@
 
     .cadastro-container input::placeholder {
       color: #666;
+>>>>>>> dcdd31358ee82ece4bdec130789404690b876757
     }
 
     .cadastro-container button {
       width: 100%;
       padding: 10px;
+<<<<<<< HEAD
+      background-color: #dc2743;
+      color: white;
+=======
       background-color: #fff;
       color: #dc2743;
+>>>>>>> dcdd31358ee82ece4bdec130789404690b876757
       border: none;
       border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
+<<<<<<< HEAD
+    }
+
+    .cadastro-container button:hover {
+      background-color: #cc2366;
+=======
       font-weight: bold;
     }
 
     .cadastro-container button:hover {
       background-color: #f2f2f2;
+>>>>>>> dcdd31358ee82ece4bdec130789404690b876757
     }
 
     .cadastro-container p {
       margin-top: 20px;
       font-size: 14px;
+<<<<<<< HEAD
+    }
+
+    .cadastro-container a {
+      color: #dc2743;
+      text-decoration: none;
+    }
+
+    .cadastro-container a:hover {
+      text-decoration: underline;
+=======
       color: #fff;
     }
 
@@ -83,30 +136,53 @@
 
     .cadastro-container a:hover {
       color: #ffe0e0;
+>>>>>>> dcdd31358ee82ece4bdec130789404690b876757
     }
   </style>
 </head>
 <body>
   <div class="cadastro-container">
+<<<<<<< HEAD
+    <h2>Criar Conta</h2>
+    <input type="text" id="novoUsuario" placeholder="Novo usuário">
+    <input type="password" id="novaSenha" placeholder="Nova senha">
+    <button onclick="cadastrar()">Cadastrar</button>
+
+    <p>Já tem uma conta? <a href="login.html">Faça login</a></p>
+=======
     <h2>Cadastro</h2>
     <input type="text" id="novoUsuario" placeholder="Usuário" />
     <input type="password" id="senha" placeholder="Senha" />
     <input type="password" id="confirmaSenha" placeholder="Confirme a senha" />
     <button onclick="cadastrar()">Cadastrar</button>
     <p>Já tem cadastro? <a href="login.html">Faça login aqui</a></p>
+>>>>>>> dcdd31358ee82ece4bdec130789404690b876757
   </div>
 
   <script>
     function cadastrar() {
+<<<<<<< HEAD
+      const novoUsuario = document.getElementById("novoUsuario").value.trim();
+      const novaSenha = document.getElementById("novaSenha").value.trim();
+
+      if (!novoUsuario || !novaSenha) {
+=======
       const usuario = document.getElementById("novoUsuario").value.trim();
       const senha = document.getElementById("senha").value.trim();
       const confirma = document.getElementById("confirmaSenha").value.trim();
 
       if (!usuario || !senha || !confirma) {
+>>>>>>> dcdd31358ee82ece4bdec130789404690b876757
         alert("Por favor, preencha todos os campos.");
         return;
       }
 
+<<<<<<< HEAD
+      // Aqui você poderia salvar em um banco de dados ou localStorage
+      alert("Cadastro realizado com sucesso!");
+
+      // Redireciona para a tela de login
+=======
       if (senha !== confirma) {
         alert("As senhas não coincidem.");
         return;
@@ -123,6 +199,7 @@
       localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
       alert("Cadastro realizado com sucesso! Agora faça login.");
+>>>>>>> dcdd31358ee82ece4bdec130789404690b876757
       window.location.href = "login.html";
     }
   </script>
