@@ -69,66 +69,23 @@ document.addEventListener('DOMContentLoaded', () => {
   function checkGameOver() {
     const total = board.reduce((sum, n) => sum + n, 0);
     if (total === 0) {
-      alert('Fim de jogo! Todos os fósforos foram removidos.');
+      // Ao invés de alert, mostramos modal de fim de jogo
+      const modal = document.getElementById('gameOverModal');
+      modal.classList.remove('hidden');
     }
   }
+
+  // >>> IMPORTANTE: este código precisa ficar DENTRO do DOMContentLoaded
+  // porque se rodar antes, o elemento ainda não existe no DOM e getElementById retorna null,
+  // causando erro ao tentar adicionar event listener.
+  document.getElementById('closeModalBtn').addEventListener('click', () => {
+    const modal = document.getElementById('gameOverModal');
+    modal.classList.add('hidden');
+    restartGame(); // opcional: reinicia o jogo quando fechar o modal
+  });
 
   document.getElementById('confirm-button').addEventListener('click', confirmMove);
   document.getElementById('restart-button').addEventListener('click', restartGame);
 
   renderBoard(); // chama pela primeira vez
-});
-
-
-
-function selectStick(lineIndex, stickIndex, stickElement) {
-  if (selectedLine !== null && selectedLine !== lineIndex) return;
-
-  const key = `${lineIndex}-${stickIndex}`;
-  const alreadySelected = selectedSticks.find(s => s.key === key);
-
-  if (alreadySelected) {
-    // Deselecionar
-    selectedSticks = selectedSticks.filter(s => s.key !== key);
-    stickElement.classList.remove('selected');
-    if (selectedSticks.length === 0) selectedLine = null;
-  } else {
-    selectedLine = lineIndex;
-    selectedSticks.push({ key, element: stickElement });
-    stickElement.classList.add('selected');
-  }
-}
-
-function confirmMove() {
-  if (selectedSticks.length === 0) return;
-
-  const line = selectedLine;
-  const sticksToRemove = selectedSticks.length;
-  board[line] -= sticksToRemove;
-
-  selectedLine = null;
-  selectedSticks = [];
-
-  renderBoard();
-  checkGameOver();
-}
-
-function checkGameOver() {
-  const total = board.reduce((sum, n) => sum + n, 0);
-  if (total === 0) {
-    alert('Fim de jogo! Todos os fósforos foram removidos.');
-  }
-}
-
-function restartGame() {
-  board = [1, 3, 5, 7];       // Reconfigura o jogo inicial
-  selectedLine = null;
-  selectedSticks = [];
-  renderBoard();
-}
-
-// Inicialização
-document.addEventListener('DOMContentLoaded', () => {
-  renderBoard();
-  document.getElementById('confirm-button').addEventListener('click', confirmMove);
 });
