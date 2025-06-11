@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <title>Tela de Login</title>
+  <title>Cadastro</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -22,21 +22,21 @@
       100% { background-position: 0% 50%; }
     }
 
-    .login-container {
-      background-color: white; /* quadrado branco */
+    .cadastro-container {
+      background-color: white;
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       width: 320px;
       text-align: center;
     }
 
-    .login-container h2 {
+    .cadastro-container h2 {
       margin-bottom: 20px;
       color: #333;
     }
 
-    .login-container input {
+    .cadastro-container input {
       width: 100%;
       padding: 10px;
       margin-top: 10px;
@@ -46,7 +46,7 @@
       font-size: 14px;
     }
 
-    .login-container button {
+    .cadastro-container button {
       width: 100%;
       padding: 10px;
       background-color: #dc2743;
@@ -57,54 +57,50 @@
       cursor: pointer;
     }
 
-    .login-container button:hover {
+    .cadastro-container button:hover {
       background-color: #cc2366;
     }
 
-    .login-container p {
+    .cadastro-container p {
       margin-top: 20px;
       font-size: 14px;
     }
 
-    .login-container a {
-      color: #cc2366;
+    .cadastro-container a {
+      color: #dc2743;
       text-decoration: none;
     }
 
-    .login-container a:hover {
+    .cadastro-container a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Login</h2>
-    <input type="text" id="usuario" placeholder="Usuário">
-    <input type="password" id="senha" placeholder="Senha">
-    <button onclick="logar()">Entrar</button>
+  <div class="cadastro-container">
+    <h2>Criar Conta</h2>
+    <input type="text" id="novoUsuario" placeholder="Novo usuário">
+    <input type="password" id="novaSenha" placeholder="Nova senha">
+    <button onclick="cadastrar()">Cadastrar</button>
 
-    <p>Não tem cadastro? <a href="cadastro.html">Cadastre-se aqui</a></p>
-    <p>Já tem cadastro? <strong>Faça login acima</strong></p>
+    <p>Já tem uma conta? <a href="login.html">Faça login</a></p>
   </div>
 
   <script>
-    function logar() {
-      const usuario = document.getElementById("usuario").value.trim();
-      const senha = document.getElementById("senha").value.trim();
+    function cadastrar() {
+      const novoUsuario = document.getElementById("novoUsuario").value.trim();
+      const novaSenha = document.getElementById("novaSenha").value.trim();
 
-      if (!usuario || !senha) {
-        alert("Por favor, preencha o usuário e a senha.");
+      if (!novoUsuario || !novaSenha) {
+        alert("Por favor, preencha todos os campos.");
         return;
       }
 
-      const usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+      // Aqui você poderia salvar em um banco de dados ou localStorage
+      alert("Cadastro realizado com sucesso!");
 
-      if (usuarios[usuario] && usuarios[usuario] === senha) {
-        alert("Login bem-sucedido!");
-        window.location.href = "cadastro.html"; // redireciona para a tela do jogo
-      } else {
-        alert("Usuário ou senha incorretos.");
-      }
+      // Redireciona para a tela de login
+      window.location.href = "login.html";
     }
   </script>
 </body>
