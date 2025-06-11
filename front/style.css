@@ -1,0 +1,194 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: #fafafa;
+  color: #222;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+#currentPlayer {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #007bff;
+}
+
+main {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.board {
+  display: flex;
+  flex-direction: column; /* empilhar verticalmente */
+  align-items: center;    /* centraliza horizontalmente */
+  gap: 40px;              /* espaçamento entre as pilhas */
+  width: 100%;
+}
+
+
+.pile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 110px;
+  user-select: none;
+}
+
+.pile-name {
+  font-weight: bold;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+.stick {
+  width: 14px;              /* largura um pouco maior */
+  height: 80px;             /* altura um pouco maior */
+  background: #d4aa7d;
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stick::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;              /* cabeça do fósforo levemente maior */
+  height: 18px;
+  background: radial-gradient(circle at center, #800000, #4b0000);
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Melhor espaçamento horizontal entre os palitos */
+.sticks {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 14px;                /* espaçamento entre os palitos */
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  min-height: 100px;
+  box-shadow: inset 0 0 8px #ccc;
+}
+
+.stick.selected {
+  transform: translateY(-10px);
+  box-shadow: 0 0 6px 2px #ff0000;
+}
+
+
+#confirmBtn, #restartBtn {
+  padding: 14px 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  user-select: none;
+}
+
+#confirmBtn {
+  background-color: #007bff;
+  color: white;
+}
+
+#confirmBtn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+#restartBtn {
+  background-color: #28a745;
+  color: white;
+}
+
+#restartBtn:hover {
+  background-color: #218838;
+}
+
+#history {
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  padding: 16px;
+}
+
+#history h2 {
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+#historyList {
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#historyList li {
+  padding: 6px 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 1rem;
+  color: #555;
+}
+
+#historyList li:last-child {
+  border-bottom: none;
+}
+
+/* Responsividade */
+
+@media (max-width: 600px) {
+  .board {
+    gap: 25px;
+  }
+  
+  .pile {
+    width: 90px;
+  }
+
+  .stick {
+    width: 14px;
+    height: 90px;
+  }
+
+  .stick::before {
+    width: 18px;
+    height: 18px;
+    top: -8px;
+  }
+}
