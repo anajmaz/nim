@@ -2,13 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
   let board = [1, 3, 5, 7];
   let selectedLine = null;
   let selectedSticks = [];
-  let currentPlayer = 1;  // jogador que está na vez
-  let lastPlayer = null;  // jogador que fez a última jogada
+  let currentPlayer = 1;
+  let lastPlayer = null;
+  let againstBot = false; // define se o jogo é contra o bot
 
   const currentPlayerDiv = document.getElementById('currentPlayer');
+  const confirmButton = document.getElementById('confirm-button');
 
   function updateCurrentPlayerText() {
-    currentPlayerDiv.textContent = `Jogador ${currentPlayer}, sua vez`;
+    if (againstBot && currentPlayer === 2) {
+      currentPlayerDiv.textContent = `Bot está jogando...`;
+    } else {
+      currentPlayerDiv.textContent = `Jogador ${currentPlayer}, sua vez`;
+    }
   }
 
   function switchPlayer() {
@@ -40,6 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function selectStick(lineIndex, stickIndex, stickElement) {
+    if (againstBot && currentPlayer === 2) return; // não deixa selecionar se for a vez do bot
+
     if (selectedLine !== null && selectedLine !== lineIndex) return;
 
     const key = `${lineIndex}-${stickIndex}`;
@@ -63,22 +71,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const sticksToRemove = selectedSticks.length;
     board[line] -= sticksToRemove;
 
-    // Guarda o jogador que fez a última jogada
     lastPlayer = currentPlayer;
-
     selectedLine = null;
     selectedSticks = [];
 
     renderBoard();
 
     if (checkGameOver()) {
-      // mostra no modal quem perdeu
-      const modal = document.getElementById('gameOverModal');
-      modal.querySelector('p').textContent = `Fim de jogo! Jogador ${lastPlayer} perdeu.`;
-      modal.classList.remove('hidden');
+      showGameOver();
+    } else {
+      switchPlayer();
+
+      // se for contra o bot e for a vez dele, o bot joga
+      if (againstBot && currentPlayer === 2) {
+        setTimeout(botMove, 800);
+      }
+    }
+  }
+
+  function botMove() {
+    // bot joga: remove 1 fósforo de uma pilha aleatória válida
+    const nonEmptyPiles = board.map((count, index) => ({ count, index })).filter(p => p.count > 0);
+    const chosen = nonEmptyPiles[Math.floor(Math.random() * nonEmptyPiles.length)];
+
+    board[chosen.index] -= 1;
+    lastPlayer = currentPlayer;
+    renderBoard();
+
+    if (checkGameOver()) {
+      showGameOver();
     } else {
       switchPlayer();
     }
+  }
+
+  function checkGameOver() {
+    const total = board.reduce((sum, n) => sum + n, 0);
+    return total === 0;
+  }
+
+  function showGameOver() {
+    const modal = document.getElementById('gameOverModal');
+    modal.querySelector('p').textContent = `Fim de jogo! Jogador ${lastPlayer} perdeu.`;
+    modal.classList.remove('hidden');
   }
 
   function restartGame() {
@@ -91,20 +126,32 @@ document.addEventListener('DOMContentLoaded', () => {
     renderBoard();
   }
 
-  function checkGameOver() {
-    const total = board.reduce((sum, n) => sum + n, 0);
-    return total === 0;
-  }
+  // Abrir seleção de modo no início
+  const modeModal = document.getElementById('modeSelectModal');
+  document.getElementById('vsPlayerBtn').addEventListener('click', () => {
+    againstBot = false;
+    modeModal.classList.add('hidden');
+    updateCurrentPlayerText();
+    renderBoard();
+  });
 
-  document.getElementById('closeModalBtn').addEventListener('click', () => {
-    const modal = document.getElementById('gameOverModal');
-    modal.classList.add('hidden');
+  document.getElementById('vsBotBtn').addEventListener('click', () => {
+    againstBot = true;
+    modeModal.classList.add('hidden');
+    updateCurrentPlayerText();
+    renderBoard();
+  });
+
+  // Botões
+  confirmButton.addEventListener('click', confirmMove);
+  document.getElementById('restart-button').addEventListener('click', () => {
+    modeModal.classList.remove('hidden');
     restartGame();
   });
 
-  document.getElementById('confirm-button').addEventListener('click', confirmMove);
-  document.getElementById('restart-button').addEventListener('click', restartGame);
-
-  updateCurrentPlayerText();
-  renderBoard();
+  document.getElementById('closeModalBtn').addEventListener('click', () => {
+    document.getElementById('gameOverModal').classList.add('hidden');
+    modeModal.classList.remove('hidden');
+    restartGame();
+  });
 });
