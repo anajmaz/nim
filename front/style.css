@@ -7,14 +7,13 @@
 }
 
 body {
-  background:#ff9a76;     /* laranja claro */
+  background:#ff9a76;
   color: #fff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  /* leve textura sutil para profundidade */
   background-repeat: no-repeat;
   background-size: cover;
   background-blend-mode: multiply;
@@ -35,7 +34,7 @@ header h1 {
 #currentPlayer {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #FFC75F; /* amarelo dourado para destaque */
+  color: #FFC75F;
   text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
@@ -50,9 +49,9 @@ main {
 
 #board {
   display: flex;
-  flex-direction: column; /* empilhar verticalmente */
-  align-items: center;    /* centraliza horizontalmente */
-  gap: 40px;              /* espaçamento entre as pilhas */
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
   width: 100%;
 }
 
@@ -73,8 +72,8 @@ main {
 }
 
 .stick {
-  width: 14px;              
-  height: 80px;             
+  width: 14px;
+  height: 80px;
   background: linear-gradient(180deg, #FF6F3C 0%, #FF4E89 100%);
   border-radius: 6px;
   position: relative;
@@ -96,7 +95,6 @@ main {
   box-shadow: 0 0 6px rgba(255, 199, 95, 0.7);
 }
 
-/* Melhor espaçamento horizontal entre os palitos */
 .sticks {
   display: flex;
   flex-direction: row;
@@ -129,7 +127,7 @@ main {
 }
 
 #confirm-button, #confirmBtn {
-  background: #FF4E89; /* rosa quente */
+  background: #FF4E89;
 }
 
 #confirm-button:hover, #confirmBtn:hover {
@@ -143,7 +141,7 @@ main {
 }
 
 #restart-button, #restartBtn {
-  background: #D93A3A; /* vermelho suave */
+  background: #D93A3A;
 }
 
 #restart-button:hover, #restartBtn:hover {
@@ -186,8 +184,6 @@ main {
 #historyList li:last-child {
   border-bottom: none;
 }
-
-/* ... seu CSS atual ... */
 
 /* Modal do fim de jogo */
 .modal {
@@ -248,7 +244,57 @@ main {
   transform: scale(1.05);
 }
 
+/* Modal de seleção de modo de jogo (bot ou jogador) - fundo bem escuro */
+#modeSelectionModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85); /* fundo preto escuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
 
+#modeSelectionModal .modal-content {
+  background: #ff6f61; /* mantém a cor vibrante */
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 25px #ff9a76;
+}
+
+#modeSelectionModal .modal-content h2 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+#modeSelectionModal .modal-content p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+#modeSelectionModal .modal-content button {
+  background: #FFC75F;
+  color: #4b2700;
+  border: none;
+  padding: 12px 24px;
+  margin: 0 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 0 10px #FFC75F;
+}
+
+#modeSelectionModal .modal-content button:hover {
+  background: #ffe07d;
+  transform: scale(1.05);
+}
 
 /* Responsividade */
 @media (max-width: 600px) {
