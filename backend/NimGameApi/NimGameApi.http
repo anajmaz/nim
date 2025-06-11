@@ -1,0 +1,6 @@
+@NimGameApi_HostAddress = http://localhost:5161
+
+GET {{NimGameApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
