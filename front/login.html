@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Jogo NIM</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #4facfe;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #3a98e0;
+    }
+
+    .toggle {
+      margin-top: 15px;
+      font-size: 14px;
+      cursor: pointer;
+      color: #0077cc;
+      text-decoration: underline;
+    }
+
+    .message {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .success {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2 id="formTitle">Login</h2>
+    <div class="message" id="messageBox"></div>
+    <input type="text" id="username" placeholder="Nome de usuário" />
+    <input type="password" id="password" placeholder="Senha" />
+    <button onclick="window.location.href='tela.html'">Entrar</button>
+    <div class="toggle" onclick="toggleForm()">Não tem conta? Cadastre-se</div>
+  </div>
+
+  <script>
+    let isLogin = true;
+
+    function toggleForm() {
+      isLogin = !isLogin;
+      document.getElementById("formTitle").textContent = isLogin ? "Login" : "Cadastro";
+      document.querySelector("button").textContent = isLogin ? "Entrar" : "Cadastrar";
+      document.querySelector(".toggle").textContent = isLogin
+        ? "Não tem conta? Cadastre-se"
+        : "Já tem conta? Faça login";
+      document.getElementById("messageBox").textContent = "";
+    }
+
+    function handleSubmit() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const messageBox = document.getElementById("messageBox");
+
+      if (username === "" || password === "") {
+        messageBox.textContent = "Preencha todos os campos.";
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem("users") || "{}");
+
+      if (isLogin) {
+        // LOGIN
+        if (users[username] && users[username] === password) {
+          messageBox.textContent = "";
+          alert(`Bem-vindo, ${username}!`);
+          // Aqui você pode redirecionar para o jogo:
+          // window.location.href = "jogo-nim.html?user=" + encodeURIComponent(username);
+        } else {
+          messageBox.textContent = "Usuário ou senha incorretos.";
+        }
+      } else {
+        // CADASTRO
+        if (users[username]) {
+          messageBox.textContent = "Usuário já cadastrado.";
+        } else {
+          users[username] = password;
+          localStorage.setItem("users", JSON.stringify(users));
+          messageBox.textContent = "Cadastro realizado com sucesso!";
+          messageBox.classList.add("success");
+          setTimeout(() => {
+            toggleForm();
+          }, 1500);
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
