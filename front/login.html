@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Tela de Login</title>
   <style>
     body {
@@ -23,18 +23,17 @@
     }
 
     .login-container {
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: white; /* quadrado branco */
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       width: 320px;
       text-align: center;
-      color: white;
     }
 
     .login-container h2 {
       margin-bottom: 20px;
-      color: #ffffff;
+      color: #333;
     }
 
     .login-container input {
@@ -42,45 +41,38 @@
       padding: 10px;
       margin-top: 10px;
       margin-bottom: 15px;
-      border: none;
+      border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 14px;
-      background-color: rgba(255,255,255,0.9);
-    }
-
-    .login-container input::placeholder {
-      color: #666;
     }
 
     .login-container button {
       width: 100%;
       padding: 10px;
-      background-color: #ffffff;
-      color: #dc2743;
+      background-color: #dc2743;
+      color: white;
       border: none;
       border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
-      font-weight: bold;
     }
 
     .login-container button:hover {
-      background-color: #f2f2f2;
+      background-color: #cc2366;
     }
 
     .login-container p {
       margin-top: 20px;
       font-size: 14px;
-      color: #ffffff;
     }
 
     .login-container a {
-      color: #ffffff;
-      text-decoration: underline;
+      color: #cc2366;
+      text-decoration: none;
     }
 
     .login-container a:hover {
-      color: #ffe0e0;
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -105,9 +97,14 @@
         return;
       }
 
-      // Aqui você pode redirecionar após o login simulado
-      alert("Login bem-sucedido!");
-      window.location.href = "tela.html"; // exemplo de redirecionamento
+      const usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+
+      if (usuarios[usuario] && usuarios[usuario] === senha) {
+        alert("Login bem-sucedido!");
+        window.location.href = "cadastro.html"; // redireciona para a tela do jogo
+      } else {
+        alert("Usuário ou senha incorretos.");
+      }
     }
   </script>
 </body>
