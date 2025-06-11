@@ -1,25 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Estado do jogo
   let board = [1, 3, 5, 7];
   let selectedLine = null;
   let selectedSticks = [];
-  let currentPlayer = 1; // Começa com o Jogador 1
+  let currentPlayer = 1;  // jogador que está na vez
+  let lastPlayer = null;  // jogador que fez a última jogada
 
-  // Elemento que mostra qual jogador está na vez
   const currentPlayerDiv = document.getElementById('currentPlayer');
 
-  // Atualiza o texto que mostra o jogador atual
   function updateCurrentPlayerText() {
     currentPlayerDiv.textContent = `Jogador ${currentPlayer}, sua vez`;
   }
 
-  // Alterna o jogador entre 1 e 2
   function switchPlayer() {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
     updateCurrentPlayerText();
   }
 
-  // Renderiza o tabuleiro com as pilhas e fósforos
   function renderBoard() {
     const boardContainer = document.getElementById('board');
     boardContainer.innerHTML = '';
@@ -43,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Seleciona ou desseleciona um fósforo
   function selectStick(lineIndex, stickIndex, stickElement) {
     if (selectedLine !== null && selectedLine !== lineIndex) return;
 
@@ -61,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Confirma a jogada, remove os fósforos selecionados, atualiza o tabuleiro e troca jogador
   function confirmMove() {
     if (selectedSticks.length === 0) return;
 
@@ -69,47 +63,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const sticksToRemove = selectedSticks.length;
     board[line] -= sticksToRemove;
 
+    // Guarda o jogador que fez a última jogada
+    lastPlayer = currentPlayer;
+
     selectedLine = null;
     selectedSticks = [];
 
     renderBoard();
-    checkGameOver();
 
-    // Troca o jogador após a jogada confirmada
-    switchPlayer();
+    if (checkGameOver()) {
+      // mostra no modal quem perdeu
+      const modal = document.getElementById('gameOverModal');
+      modal.querySelector('p').textContent = `Fim de jogo! Jogador ${lastPlayer} perdeu.`;
+      modal.classList.remove('hidden');
+    } else {
+      switchPlayer();
+    }
   }
 
-  // Reinicia o jogo e volta para o jogador 1
   function restartGame() {
     board = [1, 3, 5, 7];
     selectedLine = null;
     selectedSticks = [];
     currentPlayer = 1;
+    lastPlayer = null;
     updateCurrentPlayerText();
     renderBoard();
   }
 
-  // Checa se o jogo terminou
   function checkGameOver() {
     const total = board.reduce((sum, n) => sum + n, 0);
-    if (total === 0) {
-      const modal = document.getElementById('gameOverModal');
-      modal.classList.remove('hidden');
-    }
+    return total === 0;
   }
 
-  // Fecha o modal de fim de jogo e reinicia o jogo
   document.getElementById('closeModalBtn').addEventListener('click', () => {
     const modal = document.getElementById('gameOverModal');
     modal.classList.add('hidden');
     restartGame();
   });
 
-  // Eventos dos botões
   document.getElementById('confirm-button').addEventListener('click', confirmMove);
   document.getElementById('restart-button').addEventListener('click', restartGame);
 
-  // Inicializa a tela
   updateCurrentPlayerText();
   renderBoard();
 });
