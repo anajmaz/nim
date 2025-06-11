@@ -244,40 +244,40 @@ main {
   transform: scale(1.05);
 }
 
-/* Modal de seleção de modo de jogo (bot ou jogador) */
-#modeSelectModal {
+/* Modal de seleção de modo de jogo (bot ou jogador) - fundo bem escuro */
+#modeSelectionModal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.85); /* fundo preto escuro */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 10000;
 }
 
-#modeSelectModal .modal-content {
-  background: #ff914d;
+#modeSelectionModal .modal-content {
+  background: #ff6f61; /* mantém a cor vibrante */
   padding: 30px 40px;
   border-radius: 15px;
   text-align: center;
   color: white;
-  box-shadow: 0 0 25px #ffbf80;
+  box-shadow: 0 0 25px #ff9a76;
 }
 
-#modeSelectModal .modal-content h2 {
+#modeSelectionModal .modal-content h2 {
   font-size: 2rem;
   margin-bottom: 16px;
 }
 
-#modeSelectModal .modal-content p {
+#modeSelectionModal .modal-content p {
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
 
-#modeSelectModal .modal-content button {
+#modeSelectionModal .modal-content button {
   background: #FFC75F;
   color: #4b2700;
   border: none;
@@ -291,7 +291,7 @@ main {
   box-shadow: 0 0 10px #FFC75F;
 }
 
-#modeSelectModal .modal-content button:hover {
+#modeSelectionModal .modal-content button:hover {
   background: #ffe07d;
   transform: scale(1.05);
 }
