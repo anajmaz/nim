@@ -14,12 +14,24 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      overflow: hidden; /* evitar scroll */
+      position: relative;
     }
 
     @keyframes gradientAnimation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+
+    #matchCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* não atrapalha cliques */
+      z-index: 0;
     }
 
     .main-container {
@@ -29,6 +41,8 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       width: 400px;
       text-align: center;
+      position: relative;
+      z-index: 1; /* acima do canvas */
     }
 
     .main-container h1 {
@@ -58,6 +72,8 @@
   </style>
 </head>
 <body>
+  <canvas id="matchCanvas"></canvas>
+
   <div class="main-container">
     <h1>Bem-vindo ao Jogo!</h1>
     <p>Clique no botão abaixo para começar.</p>
@@ -65,8 +81,77 @@
   </div>
 
   <script>
+    const canvas = document.getElementById('matchCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    class Match {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = -20;
+        this.length = 40;
+        this.speed = 1 + Math.random() * 2;
+        this.angle = (Math.random() - 0.5) * 0.2;
+        this.headColor = `hsl(${Math.random() * 30 + 10}, 80%, 50%)`;
+      }
+      update() {
+        this.y += this.speed;
+        this.x += Math.sin(this.y / 30) * 0.5;
+        this.angle += (Math.random() - 0.5) * 0.01;
+        if (this.y > height + this.length) {
+          this.y = -this.length;
+          this.x = Math.random() * width;
+          this.speed = 1 + Math.random() * 2;
+          this.angle = (Math.random() - 0.5) * 0.2;
+          this.headColor = `hsl(${Math.random() * 30 + 10}, 80%, 50%)`;
+        }
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        // palito (cor madeira)
+        ctx.strokeStyle = '#8B4513';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, this.length);
+        ctx.stroke();
+        // cabeça do fósforo (cor fogo)
+        ctx.fillStyle = this.headColor;
+        ctx.beginPath();
+        ctx.ellipse(0, 5, 6, 10, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    const matches = [];
+    for (let i = 0; i < 30; i++) {
+      matches.push(new Match());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      matches.forEach(match => {
+        match.update();
+        match.draw(ctx);
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
     function entrar() {
-      window.location.href = "login.html"; // volta para o login
+      window.location.href = "login.html";
     }
   </script>
 </body>

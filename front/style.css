@@ -7,17 +7,24 @@
 }
 
 body {
-  background:#ff9a76;
-  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-blend-mode: multiply;
-  box-shadow: inset 0 0 60px 20px rgba(255, 255, 255, 0.15);
+  color: #fff;
+
+  /* Fundo gradiente com cores fornecidas */
+  background: #e77080;
+  background-size: 400% 400%;
+}
+
+/* Animação suave no degradê */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 header {
@@ -34,7 +41,7 @@ header h1 {
 #currentPlayer {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #FFC75F;
+  color: #f9d976;
   text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
@@ -74,7 +81,7 @@ main {
 .stick {
   width: 14px;
   height: 80px;
-  background: linear-gradient(180deg, #FF6F3C 0%, #FF4E89 100%);
+  background: #e9b15e;
   border-radius: 6px;
   position: relative;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
@@ -90,7 +97,7 @@ main {
   transform: translateX(-50%);
   width: 18px;
   height: 18px;
-  background: radial-gradient(circle at center, #fff, #FFC75F);
+  background: radial-gradient(circle, #b11d1d, #f3261f);
   border-radius: 50%;
   box-shadow: 0 0 6px rgba(255, 199, 95, 0.7);
 }
@@ -110,9 +117,10 @@ main {
 
 .stick.selected {
   transform: translateY(-10px);
-  box-shadow: 0 0 8px 3px #FFC75F;
+  box-shadow: 0 0 8px 3px #f9d976;
 }
 
+/* Botões */
 #confirmBtn, #restartBtn, #confirm-button, #restart-button {
   padding: 14px 30px;
   font-size: 1.2rem;
@@ -122,30 +130,30 @@ main {
   cursor: pointer;
   transition: background-color 0.25s ease, transform 0.2s ease;
   user-select: none;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-#confirm-button, #confirmBtn {
-  background: #FF4E89;
+#confirmBtn, #confirm-button {
+  background: #dc2743;
 }
 
-#confirm-button:hover, #confirmBtn:hover {
-  background: #e0457e;
+#confirmBtn:hover, #confirm-button:hover {
+  background: #cc2366;
   transform: scale(1.05);
 }
 
-#confirm-button:disabled, #confirmBtn:disabled {
+#confirmBtn:disabled, #confirm-button:disabled {
   background-color: #555;
   cursor: not-allowed;
 }
 
-#restart-button, #restartBtn {
-  background: #D93A3A;
+#restartBtn, #restart-button {
+  background: #e6683c;
 }
 
-#restart-button:hover, #restartBtn:hover {
-  background: #b23232;
+#restartBtn:hover, #restart-button:hover {
+  background: #bc1888;
   transform: scale(1.05);
 }
 
@@ -164,7 +172,6 @@ main {
   margin-bottom: 12px;
   font-size: 1.5rem;
   text-align: center;
-  color: #fff;
   text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
 
@@ -172,7 +179,6 @@ main {
   list-style: none;
   max-height: 200px;
   overflow-y: auto;
-  color: #fff;
 }
 
 #historyList li {
@@ -185,7 +191,7 @@ main {
   border-bottom: none;
 }
 
-/* Modal do fim de jogo */
+/* Modal */
 .modal {
   position: fixed;
   top: 0;
@@ -206,12 +212,12 @@ main {
 }
 
 .modal-content {
-  background: #ff6f61;
+  background: #dc2743;
   padding: 30px 40px;
   border-radius: 15px;
   text-align: center;
   color: white;
-  box-shadow: 0 0 20px #ff9a76;
+  box-shadow: 0 0 20px #f09433;
 }
 
 .modal-content h2 {
@@ -240,18 +246,18 @@ main {
 }
 
 .modal-content button:hover {
-  background: #f9d976;
+  background: #ffe07d;
   transform: scale(1.05);
 }
 
-/* Modal de seleção de modo de jogo (bot ou jogador) - fundo bem escuro */
+/* Modal seleção de modo */
 #modeSelectionModal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85); /* fundo preto escuro */
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -259,12 +265,12 @@ main {
 }
 
 #modeSelectionModal .modal-content {
-  background: #ff6f61; /* mantém a cor vibrante */
+  background: #cc2366;
   padding: 30px 40px;
   border-radius: 15px;
   text-align: center;
   color: white;
-  box-shadow: 0 0 25px #ff9a76;
+  box-shadow: 0 0 25px #dc2743;
 }
 
 #modeSelectionModal .modal-content h2 {
