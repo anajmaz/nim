@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderBoard() {
     const boardContainer = document.getElementById('board');
-    boardContainer.innerHTML = '';
+    boardContainer.innerHTML = ''; // Limpa os palitos estáticos do HTML
 
     board.forEach((count, lineIndex) => {
       const pileDiv = document.createElement('div');
@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Eventos
   confirmButton.addEventListener('click', confirmMove);
   restartButton.addEventListener('click', restartGame);
+
   document.getElementById('closeModalBtn').addEventListener('click', () => {
     document.getElementById('gameOverModal').classList.add('hidden');
     restartGame();
@@ -120,16 +121,21 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('playerVsPlayerBtn').addEventListener('click', () => {
     modeModal.classList.add('hidden');
     updateCurrentPlayerText();
-    renderBoard();
+    renderBoard(); // Renderiza o tabuleiro apenas depois da escolha do modo
   });
 
   document.getElementById('playerVsBotBtn').addEventListener('click', () => {
     modeModal.classList.add('hidden');
     updateCurrentPlayerText();
-    renderBoard();
-    // O jogo continua sendo entre 2 jogadores humanos mesmo que o jogador clique aqui
+    renderBoard(); // Renderiza o tabuleiro apenas depois da escolha do modo
+    // O jogo segue entre 2 jogadores humanos, por enquanto
   });
 
-  // Mostrar seleção de modo ao iniciar
+  // NÃO chamar renderBoard() aqui para não limpar os palitos estáticos no HTML
+
+  // Atualizar o texto do jogador para padrão inicial, sem alterar tabuleiro
+  updateCurrentPlayerText();
+
+  // Modal começa visível (sem alterar tabuleiro)
   modeModal.classList.remove('hidden');
 });
